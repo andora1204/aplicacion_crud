@@ -1,6 +1,35 @@
 from tkinter import *
 from tkinter import messagebox
 import tkinter.scrolledtext as tex_and_scroll
+import sqlite3
+
+def create_base():
+	my_connection=sqlite3.connect("Practica")
+
+	my_cursor=my_connection.cursor()
+
+	try:
+	
+		my_cursor.execute("""CREATE TABLE USUARIOS (
+
+			ID INTEGER PRIMARY KEY AUTOINCREMENT,
+			NOMBRE VARCHAR(20),
+			APELLIDO VARCHAR(20),
+			DIRECCION VARCHAR(20),
+			PASSWORD VARCHAR(20),
+			COMENTARIOS VARCHAR (150)
+			
+			
+			)""")
+		messagebox.showinfo("Informacion", "Usted ha creado una Base de datos con éxito!!")
+	except:
+		messagebox.showwarning("Atención", "La Base de Datos ya esta creada y conectada puede ingresar y actualizar")
+
+
+
+	my_connection.commit()
+	my_connection.close()
+	
 
 ############"interfaz grafica"################################################################################
 root=Tk()

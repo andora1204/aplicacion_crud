@@ -159,6 +159,36 @@ def delete_date():
 
 	except:
 		messagebox.showwarning("Advertencia", "Para Borrar debe incluir un numero valido en el campo ID")
+
+######################################################################################################################
+
+#####funciones de ventanas emergentes#################################################################################
+def window_information():
+	messagebox.showinfo("Informacion", "Esta aplicacion es para guardar todos los datos en una base de datos")
+
+def window_alert():
+	messagebox.showwarning("Licencia", "Esta Licencia es Otorgada por la Comandante en Jefe Dora Figuera")
+
+def exit_application():
+	value=messagebox.askquestion("Salir", "Desea Salir y Cerrar la Aplicación")
+	if value=="yes":
+		root.destroy()
+
+def delete_fields():
+	value1=messagebox.askokcancel("Borrar", "Desea Usted Borrar o Limpiar los Campos?")
+	if value1==True:
+		ID_username.set("")
+		name_username.set("")
+		surname_username.set("")
+		username_address.set("")
+		password_username.set("")
+		field_comments.delete(1.0, END)
+
+def alert_delete():
+	value2=messagebox.askokcancel("Borrar", "Alerta! desea borrar? si borra este perfil no podrá recuperarlo")
+	if value2==True:
+		delete_date()
+
 ############"interfaz grafica"################################################################################
 root=Tk()
 root.title("BBDD")

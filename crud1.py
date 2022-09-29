@@ -49,12 +49,12 @@ def insert_date():
 
 
 
-			lista_usuarios=[]
-			lista_usuarios.append(name_username.get())
-			lista_usuarios.append(surname_username.get())
-			lista_usuarios.append(username_address.get())
-			lista_usuarios.append(password_username.get())
-			lista_usuarios.append(field_comments.get("1.0", END))
+			list_username=[]
+			list_username.append(name_username.get())
+			list_username.append(surname_username.get())
+			list_username.append(username_address.get())
+			list_username.append(password_username.get())
+			list_username.append(field_comments.get("1.0", END))
 			
 
 
@@ -62,7 +62,7 @@ def insert_date():
 
 
 
-			my_cursor.execute("INSERT INTO USUARIOS VALUES(NULL,?,?,?,?,?)", lista_usuarios)
+			my_cursor.execute("INSERT INTO USUARIOS VALUES(NULL,?,?,?,?,?)", list_username)
 
 
 			my_connection.commit()
@@ -103,6 +103,62 @@ def read_date():
 		messagebox.showwarning("Alerta", "Para Buscar debe escribir numeros validos en el campo ID, no Letras!")
 	
 
+
+def update_date():
+
+	try:
+		my_connection=sqlite3.connect("Practica")
+
+		my_cursor=my_connection.cursor()
+
+		ID_number=int(ID_usuario.get())
+		update_name=name_username.get()
+		update_surname=surname_username.get()
+		update_address=username_address.get()
+		update_password=password_username.get()
+		update_comments=field_comments.get("1.0", END)
+
+		if update_name=="" or update_surname=="" or update_address=="" or update_password=="":
+			messagebox.showwarning("Advertencia", "Para Actualizar todos los campos deben estar llenos!")
+
+		else:
+		
+
+			my_cursor.execute(f"UPDATE USUARIOS SET NOMBRE='{update_name}' WHERE ID={ID_number}")
+			my_cursor.execute(f"UPDATE USUARIOS SET APELLIDO='{update_surname}' WHERE ID={ID_number}")
+			my_cursor.execute(f"UPDATE USUARIOS SET DIRECCION='{update_address}' WHERE ID={ID_number}")
+			my_cursor.execute(f"UPDATE USUARIOS SET PASSWORD='{update_password}' WHERE ID={ID_number}")
+			my_cursor.execute(f"UPDATE USUARIOS SET COMENTARIOS='{update_comments}' WHERE ID={ID_number}")
+			
+
+			my_connection.commit()
+			
+			my_connection.close()
+			messagebox.showinfo("Informacion", "Usted ha Actualizado este Campo Satisfactoriamente")
+			BorrarCampos()
+
+	except:
+		messagebox.showwarning("Advertencia", "Para Actualizar deberá darle lectura al campo que desea cambiar luego podrá actualizar pulsando el boton Update")
+
+
+def delete_date():
+	try:
+		my_connection=sqlite3.connect("Practica")
+
+		my_cursor=my_connection.cursor()
+
+		ID_number=int(ID_usuario.get())
+
+		my_cursor.execute(f"DELETE  FROM USUARIOS WHERE ID={ID_number}")
+
+		
+
+
+		my_connection.commit()
+		my_connection.close()
+
+	except:
+		messagebox.showwarning("Advertencia", "Para Borrar debe incluir un numero valido en el campo ID")
 ############"interfaz grafica"################################################################################
 root=Tk()
 root.title("BBDD")

@@ -73,6 +73,34 @@ def insert_date():
 	except:
 		messagebox.showwarning("Alerta", "No se ha creado una Base de Datos, para incluir primero pulse el boton Conectar o Crear")
 
+
+def read_date():
+	try:
+		my_connection=sqlite3.connect("Practica")
+
+		my_cursor=my_connection.cursor()
+		field_comments.delete(1.0, END)
+
+		ID_number=int(ID_username.get())
+
+		my_cursor.execute(f"SELECT * FROM USUARIOS WHERE ID={ID_number}")
+
+		lectura_tabla=my_cursor.fetchall()
+
+		for contenido in lectura_tabla:
+
+			name_username.set(contenido[1])
+			surname_username.set(contenido[2])
+			username_address.set(contenido[3])
+			password_username.set(contenido[4])
+			field_comments.insert(1.0,contenido[5])
+
+
+		my_connection.commit()
+		my_connection.close()
+
+	except:
+		messagebox.showwarning("Alerta", "Para Buscar debe escribir numeros validos en el campo ID, no Letras!")
 	
 
 ############"interfaz grafica"################################################################################

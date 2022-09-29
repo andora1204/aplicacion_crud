@@ -68,7 +68,7 @@ def insert_date():
 			my_connection.commit()
 			my_connection.close()
 			messagebox.showwarning("Insert", f"Acabas de insertar nuevos Datos con el nombre {str(name_username.get())}")
-			BorrarCampos()
+			delete_fields()
 
 	except:
 		messagebox.showwarning("Alerta", "No se ha creado una Base de Datos, para incluir primero pulse el boton Conectar o Crear")
@@ -111,7 +111,7 @@ def update_date():
 
 		my_cursor=my_connection.cursor()
 
-		ID_number=int(ID_usuario.get())
+		ID_number=int(ID_username.get())
 		update_name=name_username.get()
 		update_surname=surname_username.get()
 		update_address=username_address.get()
@@ -135,7 +135,7 @@ def update_date():
 			
 			my_connection.close()
 			messagebox.showinfo("Informacion", "Usted ha Actualizado este Campo Satisfactoriamente")
-			BorrarCampos()
+			delete_fields()
 
 	except:
 		messagebox.showwarning("Advertencia", "Para Actualizar deberá darle lectura al campo que desea cambiar luego podrá actualizar pulsando el boton Update")
@@ -147,7 +147,7 @@ def delete_date():
 
 		my_cursor=my_connection.cursor()
 
-		ID_number=int(ID_usuario.get())
+		ID_number=int(ID_username.get())
 
 		my_cursor.execute(f"DELETE  FROM USUARIOS WHERE ID={ID_number}")
 
@@ -202,24 +202,24 @@ root.config(menu=menu_bar)
 
 
 sub_BBDD=Menu(menu_bar, tearoff=0)
-sub_BBDD.add_command(label="Conectar")
-sub_BBDD.add_command(label="Insertar")
+sub_BBDD.add_command(label="Conectar", command=create_base)
+sub_BBDD.add_command(label="Insertar", command=insert_date)
 sub_BBDD.add_separator()
-sub_BBDD.add_command(label="Salir")
+sub_BBDD.add_command(label="Salir", command=exit_application)
 
 sub_delete=Menu(menu_bar, tearoff=0)
-sub_delete.add_command(label="Borrar Campos")
+sub_delete.add_command(label="Borrar Campos", command=delete_fields)
 
 
 sub_CRUD=Menu(menu_bar, tearoff=0)
-sub_CRUD.add_command(label="Crear")
-sub_CRUD.add_command(label="Leer")
-sub_CRUD.add_command(label="Actualizar")
-sub_CRUD.add_command(label="Borrar")
+sub_CRUD.add_command(label="Crear", command=create_base)
+sub_CRUD.add_command(label="Leer", command=read_date)
+sub_CRUD.add_command(label="Actualizar", command=update_date)
+sub_CRUD.add_command(label="Borrar", command=alert_delete)
 
 sub_help=Menu(menu_bar, tearoff=0)
-sub_help.add_command(label="Licencia")
-sub_help.add_command(label="Información")
+sub_help.add_command(label="Licencia", command=window_alert)
+sub_help.add_command(label="Información", command=window_information)
 
 
 menu_bar.add_cascade(label="BBDD", menu=sub_BBDD)
@@ -299,27 +299,27 @@ my_frame2.pack()
 my_frame2.config(cursor="hand2")
 my_frame2.config(bg="brown")
 
-first_button=Button(my_frame2, text="Create")
+first_button=Button(my_frame2, text="Create", command=create_base)
 first_button.config(bd=10,bg="green", fg="white")
 first_button.config(relief="groove")
 first_button.grid(row=0, column=0, padx=5, pady=10)
 
-second_button=Button(my_frame2, text="Read")
+second_button=Button(my_frame2, text="Read", command=read_date)
 second_button.config(bd=10,bg="green", fg="white")
 second_button.config(relief="groove")
 second_button.grid(row=0, column=1, padx=5, pady=10)
 
-third_button=Button(my_frame2, text="Update")
+third_button=Button(my_frame2, text="Update", command=update_date)
 third_button.config(bd=10,bg="green", fg="white")
 third_button.config(relief="groove")
 third_button.grid(row=0, column=2, padx=5, pady=10)
 
-fourth_button=Button(my_frame2, text="Delete")
+fourth_button=Button(my_frame2, text="Delete", command=alert_delete)
 fourth_button.config(bd=10,bg="green", fg="white")
 fourth_button.config(relief="groove")
 fourth_button.grid(row=0, column=3, padx=5, pady=10)
 
-fifth_button=Button(my_frame2, text="Insert")
+fifth_button=Button(my_frame2, text="Insert", command=insert_date)
 fifth_button.config(bd=10,bg="green", fg="white")
 fifth_button.config(relief="groove")
 fifth_button.grid(row=0, column=4, padx=5, pady=10)

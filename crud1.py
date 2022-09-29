@@ -29,6 +29,50 @@ def create_base():
 
 	my_connection.commit()
 	my_connection.close()
+
+def insert_date():
+	try:
+	
+		my_connection=sqlite3.connect("Practica")
+
+		my_cursor=my_connection.cursor()
+
+		nom=name_username.get()
+		ape=surname_username.get()
+		direc=username_address.get()
+		passw=password_username.get()
+
+		if nom=="" or ape=="" or direc=="" or passw=="":
+			messagebox.showwarning("Alerta", "DEBE LLENAR TODOS LOS CAMPOS! PARA INSERTAR DATOS")
+
+		else:
+
+
+
+			lista_usuarios=[]
+			lista_usuarios.append(name_username.get())
+			lista_usuarios.append(surname_username.get())
+			lista_usuarios.append(username_address.get())
+			lista_usuarios.append(password_username.get())
+			lista_usuarios.append(field_comments.get("1.0", END))
+			
+
+
+			
+
+
+
+			my_cursor.execute("INSERT INTO USUARIOS VALUES(NULL,?,?,?,?,?)", lista_usuarios)
+
+
+			my_connection.commit()
+			my_connection.close()
+			messagebox.showwarning("Insert", f"Acabas de insertar nuevos Datos con el nombre {str(name_username.get())}")
+			BorrarCampos()
+
+	except:
+		messagebox.showwarning("Alerta", "No se ha creado una Base de Datos, para incluir primero pulse el boton Conectar o Crear")
+
 	
 
 ############"interfaz grafica"################################################################################
